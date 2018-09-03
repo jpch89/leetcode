@@ -20,38 +20,26 @@ class Solution:
 
         size = len(matrix)
 
-        # 左上角锚点初始坐标
-        i0 = j0 = cnt = 0
+        # 记录第几圈
+        cnt = 0
 
         # 最外圈循环
         while size > 1:
-            i0 = j0 = cnt
+            i = j = cnt
 
             # 每圈移动 size - 1 轮
             for m in range(size - 1):
-                # 每轮重新计算锚点坐标
-                i0, j0 = i0, j0 + m
-                i, j = i0, j0
-                # 移动 4 次
-                for n in range(4):
-
-                    # 计算目标点 i, j
-                    if i == i0:
-                        j += (size - 1)
-                        if j > size - 1:
-                            i = i0 + j - (size - 1)
-                            j = j0 + size - 1
-                        tmp = matrix[i][j]
-                        matrix[i][j] = matrix[i0][j0]
-                        continue
-                    if j == j0 + size - 1:
-
-
-
-
                 # 暂存
+                top = matrix[i][j + m]
+                right = matrix[j + m][i + size - 1]
+                bottom = matrix[j + size - 1][i + size - 1 - m]
+                left = matrix[j + size - 1 - m][i]
 
-                # 移动
+                # 赋值
+                matrix[i][j + m] = left
+                matrix[j + m][i + size - 1] = top
+                matrix[j + size - 1][i + size - 1 - m] = right
+                matrix[j + size - 1 - m][i] = bottom
 
             size -= 2
             cnt += 1
